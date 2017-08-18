@@ -6,7 +6,7 @@ class Webpacker::CacheControl
   end
 
   def call(env)
-    if env["PATH_INFO"] =~ /#{public_output_uri_path}/
+    if env["PATH_INFO"] =~ /#{public_output_uri_path}/ && !Webpacker.dev_server.running?
       status, headers, body = @app.call(env)
 
       unless ALLOWED_REQUEST_METHODS.include?(env["REQUEST_METHOD"])
